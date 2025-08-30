@@ -1,189 +1,189 @@
-# Handboek voor macros.js
+# Handbook for macros.js
 
-Dit handboek biedt een uitgebreide uitleg over het gebruik van `macros.js` in je webprojecten. `macros.js` is een lichtgewicht JavaScript-bibliotheek die veelgebruikte DOM-manipulaties en event-handling vereenvoudigt, vergelijkbaar met jQuery, maar met een moderne en compacte aanpak. Het is ontworpen om direct in de browser te werken zonder afhankelijkheden.
+This handbook provides a detailed guide on using `macros.js` in your web projects. `macros.js` is a lightweight JavaScript library that simplifies common DOM manipulations and event handling, similar to jQuery, but with a modern and compact approach. It is designed to work directly in the browser without dependencies.
 
-## Inhoudsopgave
-1. [Introductie](#introductie)
-2. [Installatie](#installatie)
-3. [DOM-selectors](#dom-selectors)
-4. [DOM-manipulatie](#dom-manipulatie)
-5. [Event-handling](#event-handling)
-6. [Valuta-opmaak](#valuta-opmaak)
-7. [Voorbeeldproject](#voorbeeldproject)
-8. [Vergelijking met jQuery](#vergelijking-met-jquery)
-9. [Best practices](#best-practices)
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Installation](#installation)
+3. [DOM Selectors](#dom-selectors)
+4. [DOM Manipulation](#dom-manipulation)
+5. [Event Handling](#event-handling)
+6. [Currency Formatting](#currency-formatting)
+7. [Example Project](#example-project)
+8. [Comparison with jQuery](#comparison-with-jquery)
+9. [Best Practices](#best-practices)
 
-## Introductie
-`macros.js` biedt een verzameling hulpfuncties en methoden om DOM-elementen te selecteren, manipuleren en gebeurtenissen te beheren. Het is een moderne vervanging voor jQuery, met een focus op eenvoud en prestaties. Het ondersteunt:
-- Verkorte DOM-selectors (`$`, `$$`, `$id`)
-- Ketenbare methoden voor DOM-manipulatie (`addClass`, `removeClass`, `toggleClass`, `show`, `hide`, `toggleVisibility`)
-- Flexibele event-handling (`on`, `off`)
-- Valuta-opmaak (`formatCurrency`)
+## Introduction
+`macros.js` provides a set of helper functions and methods to select, manipulate, and manage events for DOM elements. It is a modern alternative to jQuery, focusing on simplicity and performance. It supports:
+- Shorthand DOM selectors (`$`, `$$`, `$id`)
+- Chainable DOM manipulation methods (`addClass`, `removeClass`, `toggleClass`, `show`, `hide`, `toggleVisibility`)
+- Flexible event handling (`on`, `off`)
+- Currency formatting (`formatCurrency`)
 
-In tegenstelling tot jQuery is `macros.js` compacter en maakt het gebruik van moderne JavaScript-API's zoals `querySelector` en `classList`.
+Unlike jQuery, `macros.js` is more compact and leverages modern JavaScript APIs like `querySelector` and `classList`.
 
-## Installatie
-Voeg `macros.js` toe aan je project door het script in je HTML-bestand op te nemen:
+## Installation
+Include `macros.js` in your project by adding the script to your HTML file:
 
 ```html
 <script src="macros.js"></script>
 ```
 
-Plaats het `<script>`-tag aan het einde van de `<body>` om ervoor te zorgen dat de DOM volledig is geladen, of gebruik de `onReady`-functie (zie verder).
+Place the `<script>` tag at the end of the `<body>` to ensure the DOM is fully loaded, or use the `onReady` function (see below).
 
-## DOM-selectors
-`macros.js` biedt drie globale functies voor het selecteren van elementen, vergelijkbaar met jQuery:
+## DOM Selectors
+`macros.js` provides three global functions for selecting elements, similar to jQuery:
 
-- **`$`**: Selecteert het eerste element dat overeenkomt met een CSS-selector.
+- **`$`**: Selects the first element matching a CSS selector.
   ```javascript
-  const element = $('div.my-class'); // Vergelijkbaar met jQuery $('div.my-class')
+  const element = $('div.my-class'); // Similar to jQuery $('div.my-class')
   ```
 
-- **`$$`**: Selecteert alle elementen die overeenkomen met een CSS-selector als een `NodeList`.
+- **`$$`**: Selects all elements matching a CSS selector as a `NodeList`.
   ```javascript
-  const elements = $$('div.my-class'); // Vergelijkbaar met jQuery $('div.my-class')
+  const elements = $$('div.my-class'); // Similar to jQuery $('div.my-class')
   ```
 
-- **`$id`**: Selecteert een element op basis van zijn ID.
+- **`$id`**: Selects an element by its ID.
   ```javascript
-  const element = $id('my-id'); // Vergelijkbaar met jQuery $('#my-id')
+  const element = $id('my-id'); // Similar to jQuery $('#my-id')
   ```
 
-Je kunt ook selectors gebruiken binnen een specifiek element:
+You can also use selectors within a specific element:
 ```javascript
 const parent = $id('parent');
-const child = parent.$('.child'); // Selecteert eerste .child binnen #parent
-const children = parent.$$('.child'); // Selecteert alle .child binnen #parent
+const child = parent.$('.child'); // Selects first .child within #parent
+const children = parent.$$('.child'); // Selects all .child within #parent
 ```
 
-## DOM-manipulatie
-`macros.js` biedt ketenbare methoden om DOM-elementen te manipuleren, vergelijkbaar met jQuery's ketenbare API.
+## DOM Manipulation
+`macros.js` offers chainable methods to manipulate DOM elements, similar to jQuery’s chainable API.
 
-### Klassebeheer
-- **`addClass(className)`**: Voegt een CSS-klasse toe.
+### Class Management
+- **`addClass(className)`**: Adds a CSS class.
   ```javascript
   $id('my-element').addClass('highlight');
   ```
 
-- **`removeClass(className)`**: Verwijdert een CSS-klasse.
+- **`removeClass(className)`**: Removes a CSS class.
   ```javascript
   $id('my-element').removeClass('highlight');
   ```
 
-- **`toggleClass(className)`**: Wisselt een CSS-klasse aan/uit.
+- **`toggleClass(className)`**: Toggles a CSS class on/off.
   ```javascript
   $id('my-element').toggleClass('highlight');
   ```
 
-- **`hasClass(className)`**: Controleert of een element een CSS-klasse heeft.
+- **`hasClass(className)`**: Checks if an element has a CSS class.
   ```javascript
   if ($id('my-element').hasClass('highlight')) {
-      console.log('Element heeft de klasse highlight');
+      console.log('Element has the highlight class');
   }
   ```
 
-Deze methoden werken ook op een `NodeList`:
+These methods also work on a `NodeList`:
 ```javascript
-$$('.item').addClass('active'); // Voegt 'active' toe aan alle .item-elementen
+$$('.item').addClass('active'); // Adds 'active' to all .item elements
 ```
 
-### Zichtbaarheid
-- **`show()`**: Maakt een element zichtbaar door `display: inline-block` in te stellen.
+### Visibility
+- **`show()`**: Makes an element visible by setting `display: inline-block`.
   ```javascript
   $id('my-element').show();
   ```
 
-- **`hide()`**: Verbergt een element door `display: none` in te stellen.
+- **`hide()`**: Hides an element by setting `display: none`.
   ```javascript
   $id('my-element').hide();
   ```
 
-- **`toggleVisibility()`**: Wisselt tussen zichtbaar en verborgen.
+- **`toggleVisibility()`**: Toggles between visible and hidden.
   ```javascript
   $id('my-element').toggleVisibility();
   ```
 
-**Opmerking**: `show()` gebruikt `inline-block` als standaardweergave. Als je een andere `display`-stijl nodig hebt, stel je deze handmatig in:
+**Note**: `show()` uses `inline-block` as the default display. If you need a different `display` style, set it manually:
 ```javascript
 $id('my-element').style.display = 'block';
 ```
 
-## Event-handling
-`macros.js` biedt flexibele methoden voor het toevoegen en verwijderen van gebeurtenislisteners.
+## Event Handling
+`macros.js` provides flexible methods for adding and removing event listeners.
 
-### Gebe Sohnissen toevoegen
-- **`on(event, handler)`**: Voegt een gebeurtenislistener toe aan een element of document.
+### Adding Events
+- **`on(event, handler)`**: Adds an event listener to an element or document.
   ```javascript
   $id('my-button').on('click', () => {
-      console.log('Knop geklikt!');
+      console.log('Button clicked!');
   });
   ```
 
-- **`on(event, selector, handler)`**: Voegt een gedelegeerde gebeurtenislistener toe (voor elementen die overeenkomen met een selector).
+- **`on(event, selector, handler)`**: Adds a delegated event listener (for elements matching a selector).
   ```javascript
   document.on('click', '.item', (e) => {
-      console.log('Item geklikt:', e.target);
+      console.log('Item clicked:', e.target);
   });
   ```
 
-Dit is vergelijkbaar met jQuery's `$(document).on('click', '.item', handler)`.
+This is similar to jQuery’s `$(document).on('click', '.item', handler)`.
 
-- **NodeList-ondersteuning**:
+- **NodeList Support**:
   ```javascript
   $$('.item').on('click', () => {
-      console.log('Een item is geklikt');
+      console.log('An item was clicked');
   });
   ```
 
-### Gebeurtenissen verwijderen
-- **`off(event, handler)`**: Verwijdert een gebeurtenislistener.
+### Removing Events
+- **`off(event, handler)`**: Removes an event listener.
   ```javascript
-  const handler = () => console.log('Klik');
+  const handler = () => console.log('Click');
   $id('my-button').on('click', handler);
   $id('my-button').off('click', handler);
   ```
 
-**Opmerking**: Gedelegeerde gebeurtenissen kunnen alleen worden verwijderd door de exacte handler-referentie te gebruiken.
+**Note**: Delegated events can only be removed using the exact handler reference.
 
-### DOM- en laad-gebeurtenissen
-- **`onReady(callback)`**: Voert een callback uit zodra de DOM is geladen.
+### DOM and Load Events
+- **`onReady(callback)`**: Executes a callback once the DOM is loaded.
   ```javascript
   onReady(() => {
-      console.log('DOM is klaar!');
+      console.log('DOM is ready!');
   });
   ```
 
-- **`onLoad(callback)`**: Voert een callback uit zodra de DOM en alle middelen (zoals stylesheets) zijn geladen.
+- **`onLoad(callback)`**: Executes a callback once the DOM and all resources (e.g., stylesheets) are loaded.
   ```javascript
   onLoad(() => {
-      console.log('Alles is geladen!');
+      console.log('Everything is loaded!');
   });
   ```
 
-## Valuta-opmaak
-De functie `formatCurrency` formatteert een numerieke waarde als valuta:
+## Currency Formatting
+The `formatCurrency` function formats a numeric value as currency:
 ```javascript
-const prijs = window.formatCurrency(1234.56, 'nl-NL', 'EUR');
-// Output: "€ 1.234,56"
+const price = window.formatCurrency(1234.56, 'nl-NL', 'EUR');
+// Output: "€1,234.56"
 ```
 
-Je kunt de opmaak aanpassen met opties:
+You can customize the formatting with options:
 ```javascript
-const prijs = window.formatCurrency(1234.56, 'en-US', 'USD', {
+const price = window.formatCurrency(1234.56, 'en-US', 'USD', {
     minimumFractionDigits: 0
 });
 // Output: "$1,235"
 ```
 
-## Voorbeeldproject
-Hier is een eenvoudig voorbeeld van een HTML-pagina die `macros.js` gebruikt om een interactieve lijst te maken:
+## Example Project
+Here’s a simple example of an HTML page using `macros.js` to create an interactive list:
 
 ```html
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>macros.js Voorbeeld</title>
+    <title>macros.js Example</title>
     <style>
         .item { padding: 10px; border: 1px solid #ccc; margin: 5px; }
         .active { background-color: #f0f0f0; }
@@ -192,32 +192,30 @@ Hier is een eenvoudig voorbeeld van een HTML-pagina die `macros.js` gebruikt om 
     <script src="macros.js"></script>
 </head>
 <body>
-    <button id="toggle">Toon/Verberg</button>
+    <button id="toggle">Show/Hide</button>
     <ul id="list">
-        <li class="item">Item 1 - € 10,00</li>
-        <li class="item">Item 2 - € 20,00</li>
-        <li class="item">Item 3 - € 30,00</li>
+        <li class="item">Item 1 - €10.00</li>
+        <li class="item">Item 2 - €20.00</li>
+        <li class="item">Item 3 - €30.00</li>
     </ul>
     <script>
         onReady(() => {
             const list = $id('list');
             
-            // Voeg klikgebeurtenis toe aan items
+            // Add click event to items
             list.$$('.item').on('click', function() {
                 this.toggleClass('active');
             });
 
-            // Toon/verberg lijst
+            // Show/hide list
             $id('toggle').on('click', () => {
                 list.toggleVisibility();
             });
 
-            // Formatteer prijzen
+            // Format prices
             list.$$('.item').forEach((item, index) => {
-                const prijs = (index + 1) * 10;
-                item.textContent = `Item ${index + 1} - ${window
-
-.formatCurrency(prijs)}`;
+                const price = (index + 1) * 10;
+                item.textContent = `Item ${index + 1} - ${window.formatCurrency(price)}`;
             });
         });
     </script>
@@ -225,47 +223,47 @@ Hier is een eenvoudig voorbeeld van een HTML-pagina die `macros.js` gebruikt om 
 </html>
 ```
 
-Dit voorbeeld:
-- Gebruikt `onReady` om te wachten tot de DOM is geladen.
-- Voegt een klikgebeurtenis toe aan elk `.item`-element om de `active`-klasse te wisselen.
-- Voegt een knop toe om de lijst te tonen/verbergen.
-- Formateert prijzen met `formatCurrency`.
+This example:
+- Uses `onReady` to wait for the DOM to load.
+- Adds a click event to each `.item` element to toggle the `active` class.
+- Adds a button to show/hide the list.
+- Formats prices using `formatCurrency`.
 
-## Vergelijking met jQuery
-Hier is een snelle vergelijking om de overgang van jQuery naar `macros.js` te vergemakkelijken:
+## Comparison with jQuery
+Here’s a quick comparison to help transition from jQuery to `macros.js`:
 
-| Functionaliteit         | jQuery                          | macros.js                       |
+| Functionality           | jQuery                          | macros.js                       |
 |------------------------|---------------------------------|---------------------------------|
-| Selecteer één element   | `$('div')`                     | `$('div')`                     |
-| Selecteer meerdere     | `$('div')`                     | `$$('div')`                    |
-| Selecteer op ID        | `$('#id')`                     | `$id('id')`                    |
-| Klasse toevoegen       | `$('#id').addClass('cls')`     | `$id('id').addClass('cls')`    |
-| Klasse verwijderen      | `$('#id').removeClass('cls')`  | `$id('id').removeClass('cls')` |
-| Klasse wisselen        | `$('#id').toggleClass('cls')`  | `$id('id').toggleClass('cls')` |
-| Toon element           | `$('#id').show()`              | `$id('id').show()`             |
-| Verberg element        | `$('#id').hide()`              | `$id('id').hide()`             |
-| Event toevoegen        | `$('#id').on('click', fn)`     | `$id('id').on('click', fn)`    |
-| Gedelegeerd event      | `$(document).on('click', '.item', fn)` | `document.on('click', '.item', fn)` |
-| DOM klaar              | `$(document).ready(fn)`        | `onReady(fn)`                  |
+| Select one element      | `$('div')`                     | `$('div')`                     |
+| Select multiple         | `$('div')`                     | `$$('div')`                    |
+| Select by ID           | `$('#id')`                     | `$id('id')`                    |
+| Add class              | `$('#id').addClass('cls')`     | `$id('id').addClass('cls')`    |
+| Remove class           | `$('#id').removeClass('cls')`  | `$id('id').removeClass('cls')` |
+| Toggle class           | `$('#id').toggleClass('cls')`  | `$id('id').toggleClass('cls')` |
+| Show element           | `$('#id').show()`              | `$id('id').show()`             |
+| Hide element           | `$('#id').hide()`              | `$id('id').hide()`             |
+| Add event              | `$('#id').on('click', fn)`     | `$id('id').on('click', fn)`    |
+| Delegated event        | `$(document).on('click', '.item', fn)` | `document.on('click', '.item', fn)` |
+| DOM ready              | `$(document).ready(fn)`        | `onReady(fn)`                  |
 
-**Verschillen**:
-- `macros.js` retourneert native DOM-elementen (`Element` of `NodeList`), terwijl jQuery een jQuery-object retourneert.
-- `macros.js` heeft geen animaties of AJAX-functionaliteit, wat jQuery wel biedt.
-- `macros.js` is veel kleiner en heeft geen externe afhankelijkheden.
+**Differences**:
+- `macros.js` returns native DOM elements (`Element` or `NodeList`), while jQuery returns a jQuery object.
+- `macros.js` lacks animations or AJAX functionality, which jQuery provides.
+- `macros.js` is much smaller and has no external dependencies.
 
-## Best practices
-1. **Gebruik `onReady` of `onLoad`**: Plaats je scripts aan het einde van de `<body>` of gebruik `onReady` om te zorgen dat de DOM beschikbaar is.
-2. **Keten methoden**: Maak gebruik van de ketenbaarheid van methoden zoals `addClass` en `show` voor leesbare code.
+## Best Practices
+1. **Use `onReady` or `onLoad`**: Place scripts at the end of the `<body>` or use `onReady` to ensure the DOM is available.
+2. **Chain Methods**: Leverage method chaining for readable code.
    ```javascript
    $id('my-element').addClass('highlight').show();
    ```
-3. **Gebruik gedelegeerde events**: Voor dynamisch toegevoegde elementen, gebruik `document.on('click', '.selector', handler)` om prestaties te optimaliseren.
-4. **Minimaliseer DOM-toegang**: Cache selectors in variabelen om herhaalde DOM-query's te vermijden.
+3. **Use Delegated Events**: For dynamically added elements, use `document.on('click', '.selector', handler)` to optimize performance.
+4. **Minimize DOM Access**: Cache selectors in variables to avoid repeated DOM queries.
    ```javascript
    const button = $id('my-button');
    button.on('click', () => button.toggleClass('active'));
    ```
-5. **Valideer selectors**: Zorg ervoor dat je selectors correct zijn om `null`-fouten te voorkomen.
+5. **Validate Selectors**: Ensure selectors are valid to avoid `null` errors.
    ```javascript
    const element = $('div.my-class');
    if (element) {
@@ -273,5 +271,5 @@ Hier is een snelle vergelijking om de overgang van jQuery naar `macros.js` te ve
    }
    ```
 
-## Conclusie
-`macros.js` is een krachtige, lichtgewicht tool voor moderne webontwikkeling. Het biedt een vertrouwde, jQuery-achtige API, maar maakt gebruik van native browser-API's voor betere prestaties. Door de bovenstaande richtlijnen en voorbeelden te volgen, kun je snel en efficiënt interactieve webapplicaties bouwen.
+## Conclusion
+`macros.js` is a powerful, lightweight tool for modern web development. It offers a familiar, jQuery-like API while leveraging native browser APIs for better performance. By following the guidelines and examples above, you can quickly and efficiently build interactive web applications.
